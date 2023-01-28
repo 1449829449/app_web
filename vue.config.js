@@ -1,7 +1,23 @@
 // vue.config.js
 const path = require('path')
+function resolve (dir) {
+  return path.join(__dirname, './', dir)
+}
 module.exports = {
   publicPath: process.env.VUE_APP_ENV === 'prod' ? 'CDN' : '', // 打包路径
+  devServer: {
+    proxy: {
+      [process.env.VUE_APP_BASE_URL]: {
+        target: process.env.VUE_APP_BASE_HTTP, // 后台接口域名
+        ws: true, // 如果要代理 websockets，配置这个参数
+        secure: false, // 如果是https接口，需要配置这个参数
+        changeOrigin: true // 是否跨域
+        // pathRewrite: {
+        //   "^/hmb-admin-base": "/hmb-admin-base",
+        // },
+      }
+    }
+  },
   // less 写法
   pluginOptions: {
     'style-resources-loader': {
@@ -22,5 +38,20 @@ module.exports = {
         }
       }
     }
+  },
+  chainWebpack: (config) => {
+    // vue.config.js svg 图标进行自动注册
+    config.module.rule('svg').exclude.add(resolve('src/icons')).end()
+    config.module
+      .rule('icons')
+      .test(/\.svg$/)
+      .include.add(resolve('src/icons'))
+      .end()
+      .use('svg-sprite-loader')
+      .loader('svg-sprite-loader')
+      .options({
+        symbolId: 'icon-[name]'
+      }).end()
   }
+
 }
