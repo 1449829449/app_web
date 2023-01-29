@@ -3,8 +3,11 @@ const path = require('path')
 function resolve (dir) {
   return path.join(__dirname, './', dir)
 }
+const CompressionPlugin = require('compression-webpack-plugin')
+
 module.exports = {
-  publicPath: process.env.VUE_APP_ENV === 'prod' ? 'CDN' : '', // 打包路径
+  publicPath: process.env.VUE_APP_ENV === 'prod' ? '' : '', // 打包路径
+  parallel: false,
   devServer: {
     proxy: {
       [process.env.VUE_APP_BASE_URL]: {
@@ -39,6 +42,11 @@ module.exports = {
       }
     }
   },
+  configureWebpack: {
+    plugins: [
+      require('unplugin-vue-components/webpack')({ /* options */ })
+    ]
+  },
   chainWebpack: (config) => {
     // vue.config.js svg 图标进行自动注册
     config.module.rule('svg').exclude.add(resolve('src/icons')).end()
@@ -52,6 +60,9 @@ module.exports = {
       .options({
         symbolId: 'icon-[name]'
       }).end()
+      // zip 压缩
+    config.when(process.env.VUE_APP_ENV === 'prod', () => {
+      config.plugin('CompressionPlugin').use(CompressionPlugin, [{ deleteOriginalAssets: true }])
+    })
   }
-
 }

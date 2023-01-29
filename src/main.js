@@ -6,7 +6,9 @@ import vhCheck from 'vh-check'
 import './libs/addVant'
 import './icons'
 import 'amfe-flexible'
+import Directives from './libs/directives'
 require('../mock')
+Vue.use(Directives)
 
 vhCheck('browser-address-bar')
 
