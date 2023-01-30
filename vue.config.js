@@ -4,10 +4,13 @@ function resolve (dir) {
   return path.join(__dirname, './', dir)
 }
 const CompressionPlugin = require('compression-webpack-plugin')
+const WebpackBundleAnalyzer = require('webpack-bundle-analyzer')
+const vConsolePlugin = require('vconsole-webpack-plugin')
 
 module.exports = {
-  publicPath: process.env.VUE_APP_ENV === 'prod' ? '' : '', // 打包路径
+  publicPath: process.env.VUE_APP_ENV === 'prod' ? 'CDN' : '', // 打包路径
   parallel: false,
+  productionSourceMap: process.env.VUE_APP_ENV !== 'prod', // 是否关闭map（可查看源码）
   devServer: {
     proxy: {
       [process.env.VUE_APP_BASE_URL]: {
@@ -60,9 +63,29 @@ module.exports = {
       .options({
         symbolId: 'icon-[name]'
       }).end()
-      // zip 压缩
+    // zip 压缩
     config.when(process.env.VUE_APP_ENV === 'prod', () => {
       config.plugin('CompressionPlugin').use(CompressionPlugin, [{ deleteOriginalAssets: true }])
     })
+    // 图片压缩
+    config.module
+      .rule('images')
+      .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
+      .use('image-webpack-loader')
+      .loader('image-webpack-loader')
+      .options({
+        bypassOnDebug: true
+      })
+      .end()
+      // 测试环境开启调试
+    config.when(process.env.NODE_ENV !== 'prod', (config) => {
+      config.plugin('vConsole').use(vConsolePlugin, [{ filter: [], enable: true }])
+    })
+    // 包分析工具
+    if (process.env.use_analyzer) {
+      config.plugin('webpack-bundle-analyzer').use(new WebpackBundleAnalyzer.BundleAnalyzerPlugin({
+        openAnalyzer: false // 在默认浏览器中是否自动打开报告，默认 true
+      }))
+    }
   }
 }

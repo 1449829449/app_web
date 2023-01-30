@@ -4,6 +4,7 @@
     <svg-icon icon-class="jinxingzhong"></svg-icon>
     <div class="login-btn" v-permission="false">3333333</div>
     <img v-iurl="'tb-banner.png'" />
+    {{ 100 | gold}}
 
   </div>
 </template>
