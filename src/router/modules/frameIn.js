@@ -8,14 +8,5 @@ export default [
       title: '首页',
       auth: false
     }
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('@/views/About.vue'),
-    meta: {
-      title: '参保查询',
-      auth: false
-    }
   }
 ]
