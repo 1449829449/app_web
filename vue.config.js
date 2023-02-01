@@ -7,6 +7,24 @@ const CompressionPlugin = require('compression-webpack-plugin')
 const WebpackBundleAnalyzer = require('webpack-bundle-analyzer')
 const vConsolePlugin = require('vconsole-webpack-plugin')
 
+// 那些资源不打包
+const externals = {
+  vue: 'Vue',
+  'vue-router': 'VueRouter',
+  vuex: 'Vuex'
+}
+// CDN资源
+const cdn = {
+  js: [
+    // vue
+    '//cdn.staticfile.org/vue/2.5.22/vue.min.js',
+    // vue-router
+    '//cdn.staticfile.org/vue-router/3.0.2/vue-router.min.js',
+    // vuex
+    '//cdn.staticfile.org/vuex/3.1.0/vuex.min.js'
+  ]
+}
+
 module.exports = {
   publicPath: process.env.VUE_APP_ENV === 'prod' ? 'CDN' : '', // 打包路径
   parallel: false,
@@ -77,8 +95,8 @@ module.exports = {
         bypassOnDebug: true
       })
       .end()
-      // 测试环境开启调试
-    config.when(process.env.NODE_ENV !== 'prod', (config) => {
+    // 测试环境开启调试
+    config.when(process.env.VUE_APP_ENV !== 'prod', (config) => {
       config.plugin('vConsole').use(vConsolePlugin, [{ filter: [], enable: true }])
     })
     // 包分析工具
@@ -87,5 +105,11 @@ module.exports = {
         openAnalyzer: false // 在默认浏览器中是否自动打开报告，默认 true
       }))
     }
+    // CDN引入
+    config.externals(externals)
+    config.plugin('html').tap(args => {
+      args[0].cdn = cdn
+      return args
+    })
   }
 }

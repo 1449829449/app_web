@@ -13,8 +13,8 @@ import FundebugVue from 'fundebug-vue' // Vue 2.x
 
 // ◆导入
 import * as filters from './libs/filter'
-require('../mock')
-require('fundebug-revideo')
+
+process.env.VUE_APP_ENV !== 'prod' && require('../mock')
 fundebug.apikey = '59c8f859e906df92228c9b7b87712a7edd953013b65e06a45830bce05b911c4d'
 new FundebugVue(fundebug).installVueErrorHandler(Vue)
 // ◆循环注册过滤器里面的函数

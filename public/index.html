@@ -10,6 +10,10 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <link rel="apple-touch-icon" href="acuconf_rtc.png">
+    <% for(var js of htmlWebpackPlugin.options.cdn.js) { %>
+      <link href="<%=js%>" rel="preload" as="script">
+      <script src="<%=js%>"></script>
+    <% } %>
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
