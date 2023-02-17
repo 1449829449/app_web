@@ -81,6 +81,9 @@ module.exports = {
       .options({
         symbolId: 'icon-[name]'
       }).end()
+      .use('svgo-loader')
+      .loader('svgo-loader')
+      .end()
     // zip 压缩
     config.when(process.env.VUE_APP_ENV === 'prod', () => {
       config.plugin('CompressionPlugin').use(CompressionPlugin, [{ deleteOriginalAssets: true }])
