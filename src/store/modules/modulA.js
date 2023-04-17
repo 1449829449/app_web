@@ -1,10 +1,10 @@
 const A = {
   namespaced: true,
   state: {
-    name: '11'
+    name: "11",
   },
   getters: {},
   mutations: {},
-  actions: {}
-}
-export default A
+  actions: {},
+};
+export default A;

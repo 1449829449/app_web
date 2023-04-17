@@ -1,17 +1,14 @@
 <template>
-  <div class="home">
-        您好
-  </div>
+  <div class="home">您好</div>
 </template>
 
 <script>
-
 export default {
-  name: 'Home'
-}
+  name: "Home",
+};
 </script>
 <style lang="less" scoped>
-.home{
+.home {
   text-align: left;
 }
 </style>

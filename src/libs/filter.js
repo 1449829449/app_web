@@ -1,3 +1,3 @@
-export function gold (e) {
-  return `${e}元`
+export function gold(e) {
+  return `${e}元`;
 }

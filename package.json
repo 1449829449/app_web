@@ -3,12 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "lint": "vue-cli-service lint",
-    "build:prod": "vue-cli-service build --mode prod",
-    "build:test": "vue-cli-service build --mode test",
     "dev": "vue-cli-service serve --mode dev",
-    "prod": "vue-cli-service serve --mode prod",
-    "test": "vue-cli-service serve --mode test",
+    "build:test": "vue-cli-service build --mode test",
+    "build:prod": "vue-cli-service build --mode prod",
+    "lint": "vue-cli-service lint",
     "new:comp": "node ./scripts/generateComponent",
     "new:view": "node ./scripts/generateView"
   },
@@ -37,7 +35,7 @@
     "vuex": "^3.4.0"
   },
   "devDependencies": {
-    "@fullhuman/postcss-purgecss": "^3.0.0",
+    "@fullhuman/postcss-purgecss": "~3.0.0",
     "@vue/cli-plugin-babel": "~4.5.13",
     "@vue/cli-plugin-eslint": "~4.5.13",
     "@vue/cli-plugin-router": "~4.5.13",
@@ -58,7 +56,14 @@
     "less-loader": "^5.0.0",
     "mockjs": "^1.1.0",
     "postcss-pxtorem": "^5.1.1",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-prettier": "^3.3.1",
     "style-resources-loader": "^1.4.1",
+    "stylelint": "^13.8.0",
+    "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-declaration-block-no-ignored-properties": "^2.3.0",
+    "stylelint-order": "^4.1.0",
     "svgo-loader": "^4.0.0",
     "vue-cli-plugin-style-resources-loader": "~0.1.5",
     "vue-template-compiler": "^2.6.11"

@@ -14,14 +14,14 @@ export default {
   props: {
     iconClass: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
-    iconName () {
+    iconName() {
       // 前缀需要跟vue.config中的一致
-      return `#icon-${this.iconClass}`
-    }
-  }
-}
+      return `#icon-${this.iconClass}`;
+    },
+  },
+};
 </script>
