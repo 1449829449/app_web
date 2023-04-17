@@ -10,6 +10,7 @@ export default {
 <style lang="less" scoped>
 .home {
   width: auto;
+  height: auto;
   text-align: left;
 }
 </style>
