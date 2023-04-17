@@ -9,6 +9,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .home {
+  width: auto;
   text-align: left;
 }
 </style>
